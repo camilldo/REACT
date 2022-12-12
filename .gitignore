@@ -4,3 +4,6 @@
 .idea/REACT.iml
 .idea/vcs.xml
 .idea/workspace.xml
+projet/package-lock.json
+projet/package.json
+projet/yarn.lock
