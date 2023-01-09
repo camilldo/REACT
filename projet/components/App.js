@@ -6,10 +6,10 @@ import {Card, Col, Layout, Row} from 'antd';
 const App = () => {
     return (
         <Layout>
-            <div className="app">
+            <div className="app" style={{minHeight:"100vh"}}>
                 <Toolbar/>
                 <div>
-                    <div className="welcome-message">
+                    <div className="welcome-message" style={{color:"black"}}>
                         Welcome to my website!
                     </div>
                     <div className="page-links">
