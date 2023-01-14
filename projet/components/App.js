@@ -6,11 +6,12 @@ import {Card, Col, Layout, Row} from 'antd';
 const App = () => {
     return (
         <Layout>
-            <div className="app" style={{minHeight:"100vh"}}>
+            <div className="app" style={{minHeight:"100vh",backgroundSize: "cover", backgroundImage: "url('./assets/background.jpg')",backgroundRepeat:"no-repeat"}}>
                 <Toolbar/>
                 <div>
-                    <div className="welcome-message" style={{color:"black"}}>
-                        Welcome to my website!
+                    <div style={{textAlign: 'center', marginTop: '50px'}}>
+                        <p style={{color: 'white', fontSize: '24px'}}>Welcome to the Space Of the Day page! Here you can explore
+                            the latest and greatest in space exploration and technology.</p>
                     </div>
                     <div className="page-links">
                         <Row style={{padding: 32}} gutter={16} justify="center" align="middle">
@@ -23,7 +24,7 @@ const App = () => {
                             >
                                 <Link href="/">
                                     <Card hoverable cover={<img alt="Page 1" src="./assets/imageTest.jpg"/>}>
-                                        <Card.Meta title="Page 1"/>
+                                        <Card.Meta style={{textAlign: "center"}} title="Image du Jour"/>
                                     </Card>
                                 </Link>
                             </Col>
@@ -36,7 +37,7 @@ const App = () => {
                             >
                                 <Link href="/">
                                     <Card hoverable cover={<img alt="Page 2" src="./assets/imageTest.jpg"/>}>
-                                        <Card.Meta title="Page 2"/>
+                                        <Card.Meta style={{textAlign: "center"}} title="Images Aléatoires"/>
                                     </Card>
                                 </Link>
                             </Col>
@@ -49,7 +50,7 @@ const App = () => {
                             >
                                 <Link href="/">
                                     <Card hoverable cover={<img alt="Page 3" src="./assets/imageTest.jpg"/>}>
-                                        <Card.Meta title="Page 3"/>
+                                        <Card.Meta style={{textAlign: "center"}} title="Images Favorites"/>
                                     </Card>
                                 </Link>
                             </Col>
