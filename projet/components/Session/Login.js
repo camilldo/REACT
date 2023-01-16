@@ -17,6 +17,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../../config/firebase";
+import Toolbar from "../Toolbar";
 
 const firebaseApp = initializeApp(firebaseConfig);
 
@@ -34,7 +35,7 @@ const Login = () => {
                 const user = userCredential.user;
                 console.log(user);
                 message.success("vous êtes reconnu");
-                Router.push("/dashboard");
+                Router.push("/");
                 setLoading(false);
             })
             .catch((error) => {
@@ -58,6 +59,7 @@ const Login = () => {
 
     return (
         <Layout className="layout" style={{ minHeight: "100vh", backgroundImage: "url(./assets/background.jpg)", backgroundSize: "cover"  }}>
+            <Toolbar />
             <Content>
                 <Row>
                     <Col

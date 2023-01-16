@@ -24,6 +24,7 @@ import { firebaseConfig } from "../../config/firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, serverTimestamp, setDoc, doc } from "firebase/firestore";
 import Router from "next/router";
+import Toolbar from "../Toolbar";
 
 const firebaseApp = initializeApp(firebaseConfig);
 
@@ -49,7 +50,7 @@ const Signup = () => {
 
                 setLoading(false);
                 message.success("Vous êtes bien inscrit");
-                Router.push("/dashboard");
+                Router.push("/");
             })
             .catch((error) => {
                 setLoading(false);
@@ -63,6 +64,7 @@ const Signup = () => {
 
     return (
         <Layout className="layout" style={{ minHeight: "100vh", backgroundImage: "url(./assets/background.jpg)", backgroundSize: "cover" }}>
+            <Toolbar />
             <Content>
                 <Row>
                     <Col

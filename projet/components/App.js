@@ -1,26 +1,39 @@
-// import React from 'react';
-// import Toolbar from './Toolbar';
-//
-// const App = () => {
-//     return (
-//         <div className="app">
-//             <Toolbar />
-//         </div>
-//     );
-// }
-//
-// export default App;
-
-import React from 'react';
 import Toolbar from './Toolbar';
 import Link from "next/link";
 import {Card, Col, Layout, Row} from 'antd';
+import React, { useEffect, useState } from "react";
+
+import { initializeApp } from "firebase/app";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { firebaseConfig } from "../config/firebase";
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
 
 const App = () => {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        onAuthStateChanged(auth, async (user) => {
+            console.log(user)
+            if (user) {
+                const docSnap = await getDoc(doc(db, "users", user.uid));
+                console.log(docSnap);
+                console.log("affichage Docsnap")
+                if (docSnap.exists()) {
+                    setUser({...docSnap.data(), id : user.uid});
+                } // else message.warning("User not found");
+            }
+        });
+        return () => setUser(null);
+    }, []);
+
     return (
         <Layout>
             <div className="app" style={{overflowX:"hidden", minHeight:"100vh", maxHeight:"100%",backgroundSize: "cover", backgroundImage: "url('./assets/background.jpg')",backgroundRepeat:"no-repeat"}}>
-                <Toolbar/>
+                <Toolbar user={user}/>
                 <div>
                     <div style={{textAlign: 'center', marginTop: '50px'}}>
                         <p style={{color: 'white', fontSize: '24px'}}>Welcome to the Space Of the Day page! Here you can explore
