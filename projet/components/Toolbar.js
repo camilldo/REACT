@@ -32,7 +32,7 @@ const Toolbar = () => {
                 </Col>
                 <div style={{ color: '#fff', fontSize: '24px', margin: '0 20px' }}>Space Of the Day</div>
                 <Col>
-                    <Link href="/dashboard">
+                    <Link href="/connexion">
                         <UserOutlined />
                     </Link>
                 </Col>

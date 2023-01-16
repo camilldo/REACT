@@ -15,11 +15,12 @@ import React from 'react';
 import Toolbar from './Toolbar';
 import Link from "next/link";
 import {Card, Col, Layout, Row} from 'antd';
+import pictureoftheday from "../pages/pictureoftheday";
 
 const App = () => {
     return (
         <Layout>
-            <div className="app" style={{overflowX:"hidden", minHeight:"100vh", maxHeight:"100%",backgroundSize: "cover", backgroundImage: "url('./assets/background.jpg')",backgroundRepeat:"no-repeat"}}>
+            <div className="app bg" style={{overflowX:"hidden", minHeight:"100vh", maxHeight:"100%",backgroundSize: "cover",backgroundRepeat:"no-repeat"}}>
                 <Toolbar/>
                 <div>
                     <div style={{textAlign: 'center', marginTop: '50px'}}>
@@ -35,7 +36,7 @@ const App = () => {
                                 lg={6}
                                 style={{marginBottom: 16}}
                             >
-                                <Link href="/">
+                                <Link href="/pictureoftheday">
                                     <Card hoverable cover={<img alt="Page 1" src="./assets/imageTest.jpg"/>}>
                                         <Card.Meta style={{textAlign: "center"}} title="Image du Jour"/>
                                     </Card>

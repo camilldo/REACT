@@ -1,8 +1,16 @@
 import fetch from "node-fetch"
 
-export default async function handler(req,res){
-    const data = await fetch("https://api.deezer.com/album/${reg.body.id}");
-    const album = await data.json();
-    res.json(album);
-
+export default async function handler() {
+    try {
+        const data = await fetch("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY");
+        const image = await data.json();
+        return {
+            props:{
+                image: image
+            }
+        };
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
 }
