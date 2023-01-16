@@ -1,3 +1,16 @@
+// import React from 'react';
+// import Toolbar from './Toolbar';
+//
+// const App = () => {
+//     return (
+//         <div className="app">
+//             <Toolbar />
+//         </div>
+//     );
+// }
+//
+// export default App;
+
 import React from 'react';
 import Toolbar from './Toolbar';
 import Link from "next/link";
@@ -6,7 +19,7 @@ import {Card, Col, Layout, Row} from 'antd';
 const App = () => {
     return (
         <Layout>
-            <div className="app" style={{minHeight:"100vh",backgroundSize: "cover", backgroundImage: "url('./assets/background.jpg')",backgroundRepeat:"no-repeat"}}>
+            <div className="app" style={{overflowX:"hidden", minHeight:"100vh", maxHeight:"100%",backgroundSize: "cover", backgroundImage: "url('./assets/background.jpg')",backgroundRepeat:"no-repeat"}}>
                 <Toolbar/>
                 <div>
                     <div style={{textAlign: 'center', marginTop: '50px'}}>
