@@ -12,9 +12,11 @@ const TablePictures = ({images, error}) => {
     }
 
     const [open, setOpen] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-    const showDrawer = () => {
+    const showDrawer = (index) => {
         setOpen(true);
+        setCurrentIndex(index);
     };
 
     const onClose = () => {
@@ -39,32 +41,32 @@ const TablePictures = ({images, error}) => {
             <div className="bg" style={{overflowX:"hidden"}}>
                 <Toolbar/>
                 <div className="card_container">
-                        {new Array(9).fill(null).map((_, index) => (
-                            <Card key={{index}}
-                                  className="test"
-                                  hoverable
-                                  style={{width : 400, margin : "1%"}}
-                                  cover={<Image src={filterLink(images[index].url)} style={{minHeight:"30vh",maxHeight:"30vh", objectFit: "cover"}}/>}
-                            >
-                                <Meta title={images[index].title} />
-                                <div className="info-card">
-                                    <div>
-                                        <Button onClick={handleFavoriteClick}>
-                                            {isFavorited ? "Remove from favorites" : "Add to favorites"}
-                                        </Button>
-                                    </div>
-                                    <Button type="primary" onClick={showDrawer}>
-                                        <InfoCircleFilled />
+                    {new Array(9).fill(null).map((_, index) => (
+                        <Card key={{index}}
+                              className="test"
+                              hoverable
+                              style={{width : 400, margin : "1%"}}
+                              cover={<Image src={filterLink(images[index].url)} style={{minHeight:"30vh",maxHeight:"30vh", objectFit: "cover"}}/>}
+                        >
+                            <Meta title={images[index].title} />
+                            <div className="info-card">
+                                <div>
+                                    <Button onClick={handleFavoriteClick}>
+                                        {isFavorited ? "Remove from favorites" : "Add to favorites"}
                                     </Button>
                                 </div>
-                                <Drawer key={{index}} title="Basic Drawer" placement="right" onClose={onClose} open={open}>
-                                    <p className="black-text">Titre : {images[index].title}</p>
-                                    <p className="black-text">Date : {images[index].date}</p>
-                                    <p className="black-text">Description : {images[index].explanation}</p>
-                                    <p className="black-text">Lien : {images[index].url}</p>
-                                </Drawer>
-                            </Card>
-                        ))}
+                                <Button type="primary" onClick={() => showDrawer(index)}>
+                                    <InfoCircleFilled />
+                                </Button>
+                            </div>
+                            <Drawer key={{index}} title="Informations" placement="right" onClose={onClose} open={open}>
+                                <p className="black-text">Titre : {images[currentIndex].title}</p>
+                                <p className="black-text">Date : {images[currentIndex].date}</p>
+                                <p className="black-text">Description : {images[currentIndex].explanation}</p>
+                                <p className="black-text">Lien : {images[currentIndex].url}</p>
+                            </Drawer>
+                        </Card>
+                    ))}
                 </div>
             </div>
         </Layout>
