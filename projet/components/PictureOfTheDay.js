@@ -1,20 +1,72 @@
 import {Image, Layout, Card, Button} from "antd";
 import { StarFilled, StarOutlined } from "@ant-design/icons";
 import Toolbar from "./Toolbar";
-import React from "react";
+import React, {useEffect} from "react";
 import { useState } from "react";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {doc, setDoc, getDoc, getFirestore, arrayUnion, arrayRemove} from "firebase/firestore";
+import {initializeApp} from "firebase/app";
+import {firebaseConfig} from "../config/firebase";
 const { Meta } = Card;
 
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
 
 const PictureOfTheDay = ({image, error}) => {
+
+    const [user, setUser] = useState(null);
     const [isFavorited, setIsFavorited] = useState(false);
-    const handleFavoriteClick = () => {
+
+    useEffect(() => {
+        const userLog = onAuthStateChanged(auth, async (user) => {
+            console.log(user)
+            if (user) {
+                const docSnap = await getDoc(doc(db, "users", user.uid));
+                console.log(docSnap);
+                console.log("affichage Docsnap")
+                if (docSnap.exists()) {
+                    const favorites = docSnap.get("favorites");
+                    if (favorites) {
+                        const isFav = favorites.find(fav => fav.url === image.url);
+                        setIsFavorited(!!isFav);
+                    }
+                    setUser({...docSnap.data(), id : user.uid});
+                } // else message.warning("User not found");
+            } else {
+                setUser(null);
+            }
+        });
+        return () => userLog();
+    }, []);
+
+    console.log(user);
+
+    const handleFavoriteClick = async () => {
         setIsFavorited(!isFavorited);
-    }
+        if (!isFavorited) {
+            await setDoc(
+                doc(db, "users", user.id),
+                {
+                    favorites: arrayUnion(image),
+                },
+                { merge: true }
+            );
+        } else {
+            await setDoc(
+                doc(db, "users", user.id),
+                {
+                    favorites: arrayRemove(image),
+                },
+                { merge: true }
+            );
+        }
+    };
+
     return (
         <Layout>
             <div className="bg" style={{overflowX:"hidden"}}>
-                <Toolbar/>
+                <Toolbar user={user}/>
                 <div className="card_container">
                     <Card className="test"
                           hoverable
