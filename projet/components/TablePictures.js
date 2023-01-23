@@ -1,5 +1,5 @@
 import {Image, Layout, Card, Button, Space, Drawer} from "antd";
-import {InfoCircleFilled} from "@ant-design/icons"
+import {InfoCircleFilled, YoutubeFilled} from "@ant-design/icons"
 import Toolbar from "./Toolbar";
 import React, {useState} from "react";
 const { Meta } = Card;
@@ -35,7 +35,7 @@ const TablePictures = ({images, error}) => {
         }
     }
 
-    console.log(images)
+    // console.log(images)
     return (
         <Layout>
             <div className="bg" style={{overflowX:"hidden"}}>
@@ -48,7 +48,9 @@ const TablePictures = ({images, error}) => {
                               style={{width : 400, margin : "1%"}}
                               cover={<Image src={filterLink(images[index].url)} style={{minHeight:"30vh",maxHeight:"30vh", objectFit: "cover"}}/>}
                         >
-                            <Meta title={images[index].title} />
+                            <Meta title={images[index].url.includes(".youtube.com") ?
+                                <><a href={images[currentIndex].url} target="_blank" rel="noopener noreferrer"><YoutubeFilled style={{color:'red'}} /></a> {images[index].title} </>
+                                : images[index].title} />
                             <div className="info-card">
                                 <div>
                                     <Button onClick={handleFavoriteClick}>
@@ -59,11 +61,15 @@ const TablePictures = ({images, error}) => {
                                     <InfoCircleFilled />
                                 </Button>
                             </div>
-                            <Drawer key={{index}} title="Informations" placement="right" onClose={onClose} open={open}>
-                                <p className="black-text">Titre : {images[currentIndex].title}</p>
-                                <p className="black-text">Date : {images[currentIndex].date}</p>
-                                <p className="black-text">Description : {images[currentIndex].explanation}</p>
-                                <p className="black-text">Lien : {images[currentIndex].url}</p>
+                            <Drawer key={{index}} title="Informations" placement="right" onClose={onClose} open={open} maskStyle={{ opacity: 0.2 }}>
+                                <div className={"drawer-div"}>
+                                    <p className="black-text">Titre : {images[currentIndex].title}</p>
+                                    <p className="black-text">Date : {images[currentIndex].date}</p>
+                                    <p className="black-text">Description : {images[currentIndex].explanation}</p>
+                                    <p className="black-text" style={{maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                                        Lien : <a href={images[currentIndex].url} target="_blank" rel="noopener noreferrer">{images[currentIndex].url}</a>
+                                    </p>
+                                </div>
                             </Drawer>
                         </Card>
                     ))}
