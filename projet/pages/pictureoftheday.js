@@ -4,11 +4,9 @@ const pictureOfTheDay = ({image, error}) => {
 }
 
 export async function getStaticProps(context){
-    return getAlbum()
+    return getImage()
         .then(image => {
-            console.log(image)
-            if (image.props.image.error === undefined) {
-                console.log("image trouvé")
+            if (image.props.error === undefined) {
                 return image;
             } else {
                 console.log("Rien trouvé")
@@ -24,13 +22,10 @@ export async function getStaticProps(context){
         });
 }
 
-export async function getAlbum(){
+export async function getImage(){
     try{
         const data = await fetch(`https://api.nasa.gov/planetary/apod?api_key=roE59htYbm7V2FSCNEULi8Ne7pqsJZIXDh2FRioQ`);
-        console.log("je passe la")
         const image = await data.json();
-        console.log("image")
-        console.log(image)
         return{
             props: {
                 image: image,
