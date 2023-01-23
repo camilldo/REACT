@@ -49,7 +49,7 @@ const TablePictures = ({images, error}) => {
                               cover={<Image src={filterLink(images[index].url)} style={{minHeight:"30vh",maxHeight:"30vh", objectFit: "cover"}}/>}
                         >
                             <Meta title={images[index].url.includes(".youtube.com") ?
-                                <><a href={images[currentIndex].url} target="_blank" rel="noopener noreferrer"><YoutubeFilled style={{color:'red'}} /></a> {images[index].title} </>
+                                <><a href={images[index].url} target="_blank" rel="noopener noreferrer"><YoutubeFilled style={{color:'red'}} /></a> {images[index].title} </>
                                 : images[index].title} />
                             <div className="info-card">
                                 <div>
