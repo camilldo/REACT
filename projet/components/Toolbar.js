@@ -5,7 +5,7 @@ import React from "react";
 
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../config/firebase";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 
 const firebaseApp = initializeApp(firebaseConfig);
 
@@ -36,7 +36,7 @@ const Toolbar = ({user}) => {
                 <div style={{ color: '#fff', fontSize: '24px', margin: '0 20px' }}>Space Of the Day</div>
                 <Col>
                     {user && user.pseudo !== "" && user.pseudo !== null && user !== {} ?
-                    <Link href="/login" onClick={logout}>
+                    <Link href={{ pathname: '/user', props: { user }}}>
                         {user.pseudo} 
                         <UserOutlined />
                     </Link> :
