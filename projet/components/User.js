@@ -4,8 +4,10 @@ import {
     Layout,
     Row,
     Col,
-    message,
+    message, Image, Button,
 } from "antd";
+
+import astro_icon from "/public/assets/astro_icon.jpg"
 
 import {
     HomeOutlined,
@@ -28,6 +30,16 @@ const User = () => {
 
     const [user, setUser] = useState(null);
 
+    const logout = async () => {
+        signOut(auth)
+            .then(() => {
+                message.info("Vous êtes bien déconnecté");
+            })
+            .catch((err) => {
+                message.error("Une erreur s'est produite : " + err.message);
+            });
+    };
+
     useEffect(() => {
         onAuthStateChanged(auth, async (user) => {
             console.log(user)
@@ -42,35 +54,33 @@ const User = () => {
         });
         return () => setUser(null);
     }, []);
-    const logout = async () => {
-        signOut(auth)
-            .then(() => {
-                message.info("Vous êtes bien déconnecté");
-            })
-            .catch((err) => {
-                message.error("Une erreur s'est produite : " + err.message);
-            });
-    };
 
     const {Header} = Layout;
     console.log("print du user")
     console.log(user);
     return (
         <Layout>
-            <div style={{overflowX:"hidden", minHeight:"100vh", maxHeight:"100%",backgroundSize: "cover", backgroundImage: "url('./assets/background.jpg')",backgroundRepeat:"no-repeat"}}>
+            <div className="app bg" style={{overflowX:"hidden", minHeight:"100vh", maxHeight:"100%",backgroundSize: "cover",backgroundRepeat:"no-repeat"}}>
                 <Toolbar user={user}/>
-                <div style={{backgroundColor: "gray", width: "75%", borderRadius: "10px", marginLeft: "1%"}}>
+                <div style={{backgroundColor: "#404040", width: "95%", borderRadius: "10px", marginLeft: "2.5%"}}>
                     <h1>{user ?
                         <div>
-                            <div style={{width: "15%", paddingTop: "15%", backgroundColor: "white", backgroundImage: "url('./assets/astro_icon.jpg')", backgroundSize: "contain", borderRadius: "50%"}}></div>
-                            <ul>
+                            <div style={{width: "100%", height: "265px", backgroundImage: "url(./assets/background.jpg)", borderTopRightRadius: "10px", borderTopLeftRadius: "10px", backgroundSize: "cover"}}>
+                                <img src="../assets/astro_icon.jpg" style={{height: "265px", borderTopRightRadius: "25px", borderBottomRightRadius: "25px", borderTopLeftRadius: "10px"}}/>
+                            </div>
+                            <ul style={{listStyleType: "none"}}>
                                 <li>
-                                    <h2 style={{display: "inline-block"}}>Pseudo  :  </h2>{user.pseudo}
+                                    <h3 style={{display: "inline-block", borderTop: "none"}}>Pseudo  :  </h3>{user.pseudo}
                                 </li>
                                 <li>
-                                    {user.email}
+                                    <h3 style={{display: "inline-block", borderTop: "none"}}>Email  :  </h3>{user.email}
                                 </li>
                             </ul>
+                            <div style={{display: "flex", justifyContent: "flex-end"}}>
+                                <Link href="/login" style={{marginBottom: "0.4%", marginRight: "0.4%"}}>
+                                    <Button onClick={logout}>Déconnexion</Button>
+                                </Link>
+                            </div>
                         </div>
                         :
                         <p>test</p>

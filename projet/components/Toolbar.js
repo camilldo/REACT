@@ -11,15 +11,6 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const Toolbar = ({user}) => {
     const auth = getAuth(firebaseApp);
-    const logout = async () => {
-        signOut(auth)
-            .then(() => {
-                message.info("Vous êtes bien déconnecté");
-            })
-            .catch((err) => {
-                message.error("Une erreur s'est produite : " + err.message);
-            });
-    };
 
     const {Header} = Layout;
     console.log("print du user")
