@@ -1,4 +1,4 @@
-import {Image, Layout, Card, Button, Space, Drawer} from "antd";
+import {Image, Layout, Card, Button, Space, Drawer, message} from "antd";
 import {InfoCircleFilled, YoutubeFilled} from "@ant-design/icons"
 import Toolbar from "./Toolbar";
 import React, {useEffect, useState} from "react";
@@ -30,6 +30,10 @@ const Pictures = ({ picture, user }) => {
     }, []);
 
     const handleFavoriteClick = async () => {
+        if (!user) {
+            message.warning("Vous devez être connecté pour ajouter un favori");
+            return;
+        }
         setIsFavorite(!isFavorite);
         if (!isFavorite) {
             await setDoc(

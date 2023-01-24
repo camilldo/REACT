@@ -69,19 +69,24 @@ const App = () => {
                                     </Card>
                                 </Link>
                             </Col>
-                            <Col
-                                xs={24}
-                                sm={12}
-                                md={8}
-                                lg={6}
-                                style={{marginBottom: 16}}
-                            >
-                                <Link href="/">
-                                    <Card hoverable cover={<img alt="Page 3" src="./assets/imageTest.jpg"/>}>
-                                        <Card.Meta style={{textAlign: "center"}} title="Images Favorites"/>
-                                    </Card>
-                                </Link>
-                            </Col>
+                            {user && user.pseudo !== "" && user.pseudo !== null && user !== {} ?
+                                <Col
+                                    xs={24}
+                                    sm={12}
+                                    md={8}
+                                    lg={6}
+                                    style={{marginBottom: 16}}
+                                >
+                                    <Link href="/user">
+                                        <Card hoverable cover={<img alt="Page 3" src="./assets/imageTest.jpg"/>}>
+                                            <Card.Meta style={{textAlign: "center"}} title="Mon profil"/>
+                                        </Card>
+                                    </Link>
+                                </Col>
+                            :
+                                null
+                            }
+
                         </Row>
                     </div>
                 </div>

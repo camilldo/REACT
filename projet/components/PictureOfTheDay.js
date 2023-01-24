@@ -1,4 +1,4 @@
-import {Image, Layout, Card, Button} from "antd";
+import {Image, Layout, Card, Button, message} from "antd";
 import { StarFilled, StarOutlined } from "@ant-design/icons";
 import Toolbar from "./Toolbar";
 import React, {useEffect} from "react";
@@ -43,6 +43,10 @@ const PictureOfTheDay = ({image, error}) => {
     console.log(user);
 
     const handleFavoriteClick = async () => {
+        if (!user) {
+            message.warning("Vous devez être connecté pour ajouter un favori");
+            return;
+        }
         setIsFavorited(!isFavorited);
         if (!isFavorited) {
             await setDoc(
