@@ -83,8 +83,15 @@ const User = () => {
                             </div>
                         </div>
                         :
-                        <p>test</p>
+                        <p>Vous devez vous connecter</p>
                     }</h1>
+                </div>
+                <div style={{backgroundColor: "#404040", width: "95%", borderRadius: "10px", marginLeft: "2.5%"}}>
+                    <ul style={{listStyleType: "none"}}>
+                        <li>
+                            <h1 style={{marginTop: "1%"}}>VOS FAVORIS</h1>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </Layout>
