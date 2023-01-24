@@ -63,7 +63,7 @@ const App = () => {
                                 lg={6}
                                 style={{marginBottom: 16}}
                             >
-                                <Link href="/">
+                                <Link href="/randomPictures">
                                     <Card hoverable cover={<img alt="Page 2" src="./assets/imageTest.jpg"/>}>
                                         <Card.Meta style={{textAlign: "center"}} title="Images Aléatoires"/>
                                     </Card>

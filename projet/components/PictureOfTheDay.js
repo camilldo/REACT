@@ -75,7 +75,6 @@ const PictureOfTheDay = ({image, error}) => {
                               padding: "1em",
                               display: "flex",
                               flexDirection: "column",
-                              margin: "50px",
                               width: "50%"
                           }}
                           cover={<Image src={image.url} style={{maxHeight:"50vh", objectFit: "cover"}}/>}
