@@ -1,5 +1,7 @@
 import {Image, Layout, Card, Button, Space, Drawer} from "antd";
 import {InfoCircleFilled, YoutubeFilled} from "@ant-design/icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faVimeoV } from '@fortawesome/free-brands-svg-icons'
 import Toolbar from "./Toolbar";
 import React, {useEffect, useState} from "react";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
@@ -48,12 +50,15 @@ const Pictures = ({ picture, user }) => {
     };
 
     const filterLink = (url) => {
+        console.log(url)
         if (url.includes(".youtube.com")) {
             // Replace the URL with the thumbnail link
             const videoId = url.split("embed/")[1];
             const videoId2 = videoId.split("?")[0];
             // Construct the thumbnail URL
             return `https://img.youtube.com/vi/${videoId2}/hqdefault.jpg`;
+        } else if (url.includes(".vimeo.com")){
+            return 'https://i.vimeocdn.com/custom_asset/cbf0b6892f540132a1d1b8f1520a9d75.webp'
         } else {
             return url;
         }
@@ -68,7 +73,9 @@ const Pictures = ({ picture, user }) => {
         >
             <Meta title={picture.url.includes(".youtube.com") ?
                 <><a href={picture.url} target="_blank" rel="noopener noreferrer"><YoutubeFilled style={{color:'red'}} /> {picture.title}</a></>
-                : picture.title} />
+                : picture.url.includes(".vimeo.com") ?
+                    <><a href={picture.url} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faVimeoV} /> {picture.title}</a></>
+                    : picture.title} />
             <div className="info-card">
                 <div>
                     <Button onClick={handleFavoriteClick}>
