@@ -24,7 +24,7 @@ export async function getStaticProps(context){
 
 export async function getImages(){
     try{
-        const data = await fetch(`https://api.nasa.gov/planetary/apod?api_key=roE59htYbm7V2FSCNEULi8Ne7pqsJZIXDh2FRioQ&count=9`);
+        const data = await fetch(`https://api.nasa.gov/planetary/apod?api_key=roE59htYbm7V2FSCNEULi8Ne7pqsJZIXDh2FRioQ&count=24`);
         const images = await data.json();
         return{
             props: {

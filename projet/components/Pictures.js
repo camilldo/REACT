@@ -51,6 +51,9 @@ const Pictures = ({ picture, user }) => {
 
     const filterLink = (url) => {
         console.log(url)
+        if(url === undefined){
+            return 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'
+        }
         if (url.includes(".youtube.com")) {
             // Replace the URL with the thumbnail link
             const videoId = url.split("embed/")[1];
@@ -71,7 +74,7 @@ const Pictures = ({ picture, user }) => {
               style={{width : 400, margin : "1%"}}
               cover={<Image src={filterLink(picture.url)} style={{minHeight:"30vh",maxHeight:"30vh", objectFit: "cover"}}/>}
         >
-            <Meta title={picture.url.includes(".youtube.com") ?
+            <Meta title={picture.url === undefined ? picture.title : picture.url.includes(".youtube.com") ?
                 <><a href={picture.url} target="_blank" rel="noopener noreferrer"><YoutubeFilled style={{color:'red'}} /> {picture.title}</a></>
                 : picture.url.includes(".vimeo.com") ?
                     <><a href={picture.url} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faVimeoV} /> {picture.title}</a></>
