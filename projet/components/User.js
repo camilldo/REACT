@@ -20,6 +20,7 @@ import { firebaseConfig } from "../config/firebase";
 import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 import Toolbar from "./Toolbar";
 import {doc, getDoc, getFirestore} from "firebase/firestore";
+import Pictures from "./Pictures";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
@@ -90,6 +91,15 @@ const User = () => {
                     <ul style={{listStyleType: "none"}}>
                         <li>
                             <h1 style={{marginTop: "1%"}}>VOS FAVORIS</h1>
+                            {user ?
+                                <div className="card_container">
+                                    {new Array(user.favorites.len).fill(null).map((_, index) => (
+                                        <Pictures key={{index}} user={user} picture={user.favorites[index]}/>
+                                    ))}
+                                </div>
+                                :
+                                "Vous n'avez aucun Favoris"
+                            }
                         </li>
                     </ul>
                 </div>
