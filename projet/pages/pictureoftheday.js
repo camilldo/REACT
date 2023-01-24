@@ -3,7 +3,7 @@ const pictureOfTheDay = ({image, error}) => {
     return <PictureOfTheDay image={image} error={error}/>
 }
 
-export async function getStaticProps(context){
+export async function getServerSideProps(context){
     return getImage()
         .then(image => {
             if (image.props.error === undefined) {

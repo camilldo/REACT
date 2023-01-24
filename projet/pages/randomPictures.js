@@ -3,7 +3,7 @@ const randomPictures = ({images, error}) => {
     return <TablePictures images={images} error={error}/>
 }
 
-export async function getStaticProps(context){
+export async function getServerSideProps(context){
     return getImages()
         .then(images => {
             if (images.props.error === undefined) {

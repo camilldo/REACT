@@ -92,7 +92,7 @@ const User = () => {
                         <li>
                             <br/>
                             <h1 style={{marginTop: "1%"}}>VOS FAVORIS</h1>
-                            {user ?
+                            {user && user.favorites ?
                                 <div className="card_container">
                                     {Array.from({ length: user.favorites.length }).map((_, index) => (
                                         <Pictures key={{index}} user={user} picture={user.favorites[index]}/>
