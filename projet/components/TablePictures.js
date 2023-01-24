@@ -41,7 +41,7 @@ const TablePictures = ({images, error}) => {
             <div className="bg" style={{overflowX:"hidden"}}>
                 <Toolbar user={user}/>
                 <div className="card_container">
-                    {new Array(9).fill(null).map((_, index) => (
+                    {new Array(images.length).fill(null).map((_, index) => (
                         <Pictures key={{index}} user={user} picture={images[index]}/>
                     ))}
                 </div>
