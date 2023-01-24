@@ -90,10 +90,11 @@ const User = () => {
                 <div style={{backgroundColor: "#404040", width: "95%", borderRadius: "10px", marginLeft: "2.5%"}}>
                     <ul style={{listStyleType: "none"}}>
                         <li>
+                            <br/>
                             <h1 style={{marginTop: "1%"}}>VOS FAVORIS</h1>
                             {user ?
                                 <div className="card_container">
-                                    {new Array(user.favorites.len).fill(null).map((_, index) => (
+                                    {Array.from({ length: user.favorites.length }).map((_, index) => (
                                         <Pictures key={{index}} user={user} picture={user.favorites[index]}/>
                                     ))}
                                 </div>

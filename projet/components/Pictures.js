@@ -15,7 +15,20 @@ const Pictures = ({ picture, user }) => {
 
     const [isFavorite, setIsFavorite] = useState(null);
 
-    console.log(picture)
+    useEffect(() => {
+        const check = async () => {
+            console.log(user)
+            if (user) {
+                const favorites = user.favorites;
+                if (favorites) {
+                    const isFav = favorites.find(fav => fav.url === picture.url);
+                    setIsFavorite(!!isFav);
+                }
+            }
+        };
+        check()
+    }, []);
+
     const handleFavoriteClick = async () => {
         setIsFavorite(!isFavorite);
         if (!isFavorite) {
