@@ -14,8 +14,9 @@ const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
 
-const TablePictures = ({images, error}) => {
+const TablePictures = () => {
 
+    const [images,setImages] = useState(null);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -35,15 +36,35 @@ const TablePictures = ({images, error}) => {
         return () => userLog();
     }, []);
 
+    useEffect(() => {
+        try {
+            console.log("test")
+            fetch(`https://api.nasa.gov/planetary/apod?api_key=roE59htYbm7V2FSCNEULi8Ne7pqsJZIXDh2FRioQ&count=24`)
+                .then(res => res.json())
+                .then(
+                    async (result) => {
+                        console.log(result)
+                        setImages(result)
+                    },
+                )
+        } catch (error) {
+            console.log(error);
+        }
+    }, [])
+
     // console.log(images)
     return (
         <Layout>
             <div className="bg" style={{overflowX:"hidden"}}>
                 <Toolbar user={user}/>
                 <div className="card_container">
-                    {new Array(images.length).fill(null).map((_, index) => (
+                    { images ?
+                    new Array(images.length).fill(null).map((_, index) => (
                         <Pictures key={{index}} user={user} picture={images[index]}/>
-                    ))}
+                    ))
+                        :
+                        null
+                    }
                 </div>
             </div>
         </Layout>

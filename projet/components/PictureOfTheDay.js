@@ -13,8 +13,9 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
-const PictureOfTheDay = ({image, error}) => {
+const PictureOfTheDay = () => {
 
+    const [image, setImage] = useState(null);
     const [user, setUser] = useState(null);
     const [isFavorited, setIsFavorited] = useState(false);
 
@@ -28,8 +29,10 @@ const PictureOfTheDay = ({image, error}) => {
                 if (docSnap.exists()) {
                     const favorites = docSnap.get("favorites");
                     if (favorites) {
-                        const isFav = favorites.find(fav => fav.url === image.url);
-                        setIsFavorited(!!isFav);
+                        if(image){
+                            const isFav = favorites.find(fav => fav.url === image.url);
+                            setIsFavorited(!!isFav);
+                        }
                     }
                     setUser({...docSnap.data(), id : user.uid});
                 } // else message.warning("User not found");
@@ -39,6 +42,22 @@ const PictureOfTheDay = ({image, error}) => {
         });
         return () => userLog();
     }, []);
+
+    useEffect(() => {
+        try {
+            console.log("test")
+            fetch(`https://api.nasa.gov/planetary/apod?api_key=roE59htYbm7V2FSCNEULi8Ne7pqsJZIXDh2FRioQ`)
+                .then(res => res.json())
+                .then(
+                    async (result) => {
+                        console.log(result)
+                        setImage(result)
+                    },
+                )
+        } catch (error) {
+            console.log(error);
+        }
+    }, [])
 
     console.log(user);
 
@@ -71,6 +90,7 @@ const PictureOfTheDay = ({image, error}) => {
         <Layout>
             <div className="bg" style={{overflowX:"hidden"}}>
                 <Toolbar user={user}/>
+                {image && image.url ?
                 <div className="card_container">
                     <Card className="test"
                           hoverable
@@ -90,6 +110,9 @@ const PictureOfTheDay = ({image, error}) => {
                         </Button>
                     </Card>
                 </div>
+                    :
+                    null
+                }
             </div>
         </Layout>
     );
