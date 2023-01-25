@@ -18,38 +18,17 @@ const PictureOfTheDay = () => {
     const [image, setImage] = useState(null);
     const [user, setUser] = useState(null);
     const [isFavorited, setIsFavorited] = useState(false);
+    let data;
 
     useEffect(() => {
-        const userLog = onAuthStateChanged(auth, async (user) => {
-            console.log(user)
-            if (user) {
-                const docSnap = await getDoc(doc(db, "users", user.uid));
-                console.log(docSnap);
-                console.log("affichage Docsnap")
-                if (docSnap.exists()) {
-                    const favorites = docSnap.get("favorites");
-                    if (favorites) {
-                        if(image){
-                            const isFav = favorites.find(fav => fav.url === image.url);
-                            setIsFavorited(!!isFav);
-                        }
-                    }
-                    setUser({...docSnap.data(), id : user.uid});
-                } // else message.warning("User not found");
-            } else {
-                setUser(null);
-            }
-        });
-        return () => userLog();
-    }, []);
-
-    useEffect(() => {
+        let userLog;
         try {
             console.log("test")
             fetch(`https://api.nasa.gov/planetary/apod?api_key=roE59htYbm7V2FSCNEULi8Ne7pqsJZIXDh2FRioQ`)
                 .then(res => res.json())
                 .then(
                     async (result) => {
+                        data = result;
                         console.log(result)
                         setImage(result)
                     },
@@ -57,9 +36,29 @@ const PictureOfTheDay = () => {
         } catch (error) {
             console.log(error);
         }
-    }, [])
 
-    console.log(user);
+        userLog = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const docSnap = await getDoc(doc(db, "users", user.uid));
+                if (docSnap.exists()) {
+                    const favorites = docSnap.get("favorites");
+                    if (favorites) {
+                        if(data){
+                            const isFav = favorites.find(fav => fav.url === data.url);
+                            setIsFavorited(!!isFav);
+                        }
+                    }
+                    setUser({...docSnap.data(), id : user.uid});
+                    console.log("Affichage du User 1");
+                    console.log(user);
+                    console.log(image);
+                } // else message.warning("User not found");
+            } else {
+                setUser(null);
+            }
+        });
+        return () => userLog();
+    }, []);
 
     const handleFavoriteClick = async () => {
         if (!user) {
